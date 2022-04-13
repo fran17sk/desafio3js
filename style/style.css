@@ -1,0 +1,23 @@
+/*HEADER*/
+.stick{
+    position: sticky;
+}
+.logo{
+    width: 100px;
+    height: 100px;
+}
+.color{
+    color: white;
+    margin-left: 80px;
+    margin-top: -30px;
+    margin-right: 20px;
+    
+}
+.title{
+    font-size: 30px;
+}
+.fondo{
+    background-image: url("../img/poster.jpg");
+    width: 100%;
+    height: 1800px;
+}
