@@ -94,8 +94,6 @@ repuestos.push(producto16)
 
 //main 
 let nombre,precio,cantidad,total;
-let listarep=["camara","cubierta","piñon","descarrilador","asciento","plato","caja"];
-let preciorep=[1900,5000,5600,8000,1500,7500,3500];
 let productos=[];
 let codigo, conf;
 let totalA;
