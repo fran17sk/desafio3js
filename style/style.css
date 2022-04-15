@@ -1,17 +1,40 @@
 /*HEADER*/
-.stick{
-    position: sticky;
+.fondonav{
+    background-color: rgb(76, 123, 50);
 }
 .logo{
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
+}
+.name{
+    width: 180px;
+    height: 80px;
+}
+.busqueda{
+    width: 600px;
+    height: 38px;
+}
+.iconos{
+    display: flex;
+    flex-flow: column nowrap;
+}
+.iconos span{
+    font-size: 13px;
+    color: white;
 }
 .color{
     color: white;
-    margin-left: 80px;
-    margin-top: -30px;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-top: -20px;
     
+}
+.colorayuda{
+    color: white;
+    margin-top: -20px;
+}
+.colorLupa{
+    color: rgb(90, 88, 88);
+    margin-left: -90px;
 }
 .title{
     font-size: 30px;
@@ -20,4 +43,42 @@
     background-image: url("../img/poster.jpg");
     width: 100%;
     height: 1800px;
+}
+.BarraRedes{
+    background-color: #000;
+    padding-left: 20px;
+}
+.iconosRedes{
+    color: white;
+    margin:5px;
+}
+.menu-fixed {
+	position:fixed;
+	z-index:1000;
+	top:0;
+	/*max-width:1000px;*/
+	left:0;
+	width:100%;
+	box-shadow:0px 4px 3px rgba(0,0,0,.5);
+}
+.menudos{
+    display: flex;
+    flex-flow: column nowrap;
+
+}
+.barra{
+    height: 1px;
+    background-color: white;
+    opacity: 50%;
+}
+.fondoOpciones{
+    border-top: solid 1px white;
+    width: 100%;
+    margin-top: 2px;
+}
+.fondoOpciones ul{
+    margin-left: 7%;
+}
+.fondoOpciones li{
+    margin: 0px 15px 0px 15px;
 }
