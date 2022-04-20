@@ -24,7 +24,7 @@ $(document).ready(function(){
 });
 
 function myFunction0() {
-	var x = document.getElementById("pasword");
+	var x = document.getElementById("pass");
 	if (x.type === "password") {
 		x.type = "text";
 	} else {

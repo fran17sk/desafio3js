@@ -89,7 +89,7 @@ formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
 
 	const terminos = document.getElementById('terminos');
-	if(campos.usuario && campos.nombre && campos.password && campos.correo && campos.telefono && terminos.checked ){
+	if(campos.usuario && campos.nombre && campos.password && campos.correo && campos.telefono && terminos.checked===true ){
         document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
 		formulario.reset();
 
