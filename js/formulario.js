@@ -9,6 +9,29 @@ const expresiones = {
 	telefono: /^\d{7,14}$/ // 7 a 14 numeros.
 }
 
+const clientes = JSON.parse(localStorage.getItem("clientes")) || [];
+
+
+class Cuenta{
+	constructor(usuario,nombre,password,correo,telefono){
+		this.usuario=usuario;
+		this.nombre=nombre;
+		this.password=password;
+		this.correo=correo
+		this.telefono=telefono;
+	}
+}
+const crear = ()=>{
+	let usuario = document.getElementById("usuario").value;
+	let nombre = document.getElementById("nombre").value;
+	let password = document.getElementById("password").value;
+	let correo = document.getElementById("correo").value;
+	let telefono = document.getElementById("telefono").value;
+
+	const cliente = new Cuenta (usuario,nombre,password,correo,telefono);
+	clientes.push(cliente);
+}
+
 const campos = {
 	usuario: false,
 	nombre: false,
@@ -91,6 +114,8 @@ formulario.addEventListener('submit', (e) => {
 	const terminos = document.getElementById('terminos');
 	if(campos.usuario && campos.nombre && campos.password && campos.correo && campos.telefono && terminos.checked===true ){
         document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
+		crear()
+		localStorage.setItem("clientes",JSON.stringify(clientes))
 		formulario.reset();
 
 		document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
@@ -100,8 +125,83 @@ formulario.addEventListener('submit', (e) => {
 
 		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
 			icono.classList.remove('formulario__grupo-correcto');
-		});
+		}
+		);
 	} else {
 		document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
 	}
 });
+
+
+
+//INICIAR SESION
+const formularioLogin = document.getElementById('login');
+const registro = document.querySelectorAll('#login input')
+
+const expresion = {
+	user: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
+	pass: /^.{4,12}$/, // 4 a 12 digitos.
+}
+
+const valor = {
+	user: false,
+}
+
+const validarDatos = (f) => {
+	switch (f.target.name) {
+		case "user":
+			validarDato(expresion.user, f.target, 'user');
+		break;
+    }}
+
+const validarDato = (expresion, input, camp) => {
+    if(expresion.test(input.value)){
+        document.getElementById(`grupo__${camp}`).classList.remove('login__grupo-incorrecto');
+        document.getElementById(`grupo__${camp}`).classList.add('login__grupo-correcto');
+        document.querySelector(`#grupo__${camp} i`).classList.add('fa-check-circle');
+        document.querySelector(`#grupo__${camp} i`).classList.remove('fa-times-circle');
+        document.querySelector(`#grupo__${camp} .login__input-error`).classList.remove('login__input-error-activo');
+        valor[camp] = true;
+    } else {
+        document.getElementById(`grupo__${camp}`).classList.add('login__grupo-incorrecto');
+        document.getElementById(`grupo__${camp}`).classList.remove('login__grupo-correcto');
+        document.querySelector(`#grupo__${camp} i`).classList.add('fa-times-circle');
+        document.querySelector(`#grupo__${camp} i`).classList.remove('fa-check-circle');
+        document.querySelector(`#grupo__${camp} .login__input-error`).classList.add('login__input-error-activo');
+        valor[camp] = false;
+    }
+}
+
+
+registro.forEach((input) => {
+	input.addEventListener('keyup', validarDatos);
+	input.addEventListener('blur', validarDatos);
+});
+
+formularioLogin.addEventListener('submit', (f) =>{
+    f.preventDefault();
+	const clientes = JSON.parse(localStorage.getItem("clientes"));
+	console.log(clientes);
+    userin=document.getElementById("user").value;
+    passs=document.getElementById("pass").value;
+    for(const client of clientes){
+        if ((client.usuario===userin) && (client.password===passs)){
+            band=true;
+        }else{
+            band=false;
+        }
+    }
+    if (band==true){
+        document.getElementById('login__mensaje').classList.remove('login__mensaje-activo');
+        document.getElementById('login__mensaje-exito').classList.add('login__mensaje-exito-activo');
+		formularioLogin.reset();
+		setTimeout(() => {
+			document.getElementById('login__mensaje-exito').classList.remove('login__mensaje-exito-activo');
+		}, 5000);
+
+    }else{
+        document.getElementById('login__mensaje').classList.add('login__mensaje-activo');
+        formularioLogin.reset();
+    }
+
+})
