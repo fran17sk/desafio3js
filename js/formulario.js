@@ -182,13 +182,12 @@ formularioLogin.addEventListener('submit', (f) =>{
     f.preventDefault();
 	const clientes = JSON.parse(localStorage.getItem("clientes"));
 	console.log(clientes);
+	let band=false;
     userin=document.getElementById("user").value;
     passs=document.getElementById("pass").value;
-    for(const client of clientes){
+    for(let client of clientes){
         if ((client.usuario===userin) && (client.password===passs)){
             band=true;
-        }else{
-            band=false;
         }
     }
     if (band==true){
@@ -198,6 +197,10 @@ formularioLogin.addEventListener('submit', (f) =>{
 		setTimeout(() => {
 			document.getElementById('login__mensaje-exito').classList.remove('login__mensaje-exito-activo');
 		}, 5000);
+		document.querySelectorAll('.login__grupo-correcto').forEach((icono) => {
+			icono.classList.remove('login__grupo-correcto');
+		}
+		);
 
     }else{
         document.getElementById('login__mensaje').classList.add('login__mensaje-activo');
