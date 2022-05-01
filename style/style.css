@@ -636,7 +636,7 @@ footer div p{
     "filtros titulo"
     "filtros productos" 
     ;
-    grid-template-columns: 15% 85% ;
+    grid-template-columns: 200px auto ;
     grid-template-rows: 100px 1fr;
     grid-column-gap: 10px;
     grid-row-gap: 5px;
@@ -690,6 +690,49 @@ footer div p{
 
 
 
+/*NUEVO PRODUCTO*/
+.NewProd{
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+.NewProd div{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+.AgregarProd-title{
+    font-size: 40px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 1100;
+    color: rgb(76, 123, 50);
+}
+.form-newprod{
+    margin: 10px;
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    border: solid 1px rgb(76, 123, 50);
+}
+.btn-addprod{
+    background-color: rgb(76, 123, 50);
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    border: #000 solid 1px;
+    color: white;
+    margin-top: 20px;
+}
+.mensaje-error-oculto{
+    display: none;
+}
+.mensaje-error-activo{
+    display: flex;
+}
+
 /*PRODUCTOS*/
 .prodFlex{
     display: flex;
@@ -739,6 +782,10 @@ footer div p{
     flex-flow: column nowrap;
     align-items: center;
 }
+.espaciado{
+    margin: 0px;
+    padding: 0px;
+}
 .producto h5{
     margin-top: -20px;
     background-color: rgb(76, 123, 50);
@@ -766,6 +813,7 @@ footer div p{
     font-weight: 1000;
     margin-top: -40px;
     margin-bottom: 40px;
+    cursor: pointer;
 }
 .addcarrito:hover{
     color: rgb(76, 123, 50);
@@ -778,14 +826,19 @@ footer div p{
     display: none;
     position: relative;
     top: 0px;
-    left: 68%;
     width: 400px;
     height: auto;
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
     padding: 10px;
+    border: rgb(76, 123, 50) solid 1px;
 }
 .divcarrito-mostrar{
     display: block;
+}
+.exit{
+    color: rgb(76, 123, 50);
+    width: 20px;
+    height: 20px;
 }
 .titulo-carrito{
     display: flex;
@@ -794,11 +847,11 @@ footer div p{
 }
 .info-carrito{
     font-weight: 800;
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 16px;
 }
 .elemento-carrito{
-    border: solid white 0.5px;
+    border-top: solid rgb(0, 0, 0) 0.5px;
     width: auto;
     display: flex;
     flex-flow: row nowrap;
@@ -807,8 +860,8 @@ footer div p{
     padding: 2px;
 }
 .selector-carrito{
-    background-color: #000;
-    color: white;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(0, 0, 0);
     border: solid rgba(0, 0, 0, 0);
     margin-top: -10px;
 }
@@ -816,7 +869,10 @@ footer div p{
     width: 50px;
     height: 50px;
 }
-
+.derecha{
+    float: right;
+    position: sticky;
+}
 
 
 

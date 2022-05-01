@@ -115,7 +115,7 @@ formulario.addEventListener('submit', (e) => {
 	if(campos.usuario && campos.nombre && campos.password && campos.correo && campos.telefono && terminos.checked===true ){
         document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
 		crear()
-		localStorage.setItem("clientes",JSON.stringify(clientes))
+		localStorage.setItem("clientes",JSON.stringify(clientes));
 		formulario.reset();
 
 		document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');

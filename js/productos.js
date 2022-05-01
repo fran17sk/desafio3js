@@ -1,5 +1,6 @@
 class Producto{
-    constructor(nombre,marca,categoria,imagen,modelo,color,stock,precio){
+    constructor(cod,nombre,marca,categoria,imagen,modelo,color,stock,precio){
+        this.cod=cod;
         this.categoria=categoria;
         this.nombre=nombre;
         this.imagen=imagen;
@@ -17,20 +18,22 @@ class Producto{
 class UI {
     mostrarProduct(producto){
         const productList=document.getElementById("listado");
-        const element=document.createElement('div')
-        element.classList.add("producto");
-        element.classList.add("mauntain_bike");
+        const element=document.createElement('div');
+        element.classList.add('espaciado')
         element.innerHTML = `
+                <div id=${producto.cod} class="producto">
                 <img src="../img/productos/${producto.imagen || "default.jpg"}" alt="" class="img-prod">
-            <h5>$ ${producto.precio}</h5>
+                <h5>$ ${producto.precio}</h5>
                 <div class="c">
                     <h6 class="titleProd">${producto.nombre}</h6>
-                    <a href=""><h6 class="addcarrito">AGREGAR AL CARRITO</h6></a>
+                    <h6 class="addcarrito">AGREGAR AL CARRITO</h6>
+                </div>
                 </div>
         `;
         productList.appendChild(element);
     }
     agregarProducto(producto){
+        const carr=document.getElementById("carrito")
 
     }
 }
@@ -40,11 +43,16 @@ class UI {
 const mostrarCarrito=document.getElementById("carrito")
 const carr=document.getElementById("MiCarrito")
 mostrarCarrito.onclick = () => {viewCarrito(carr)}
-
 function viewCarrito(e){
     e.classList.add("divcarrito-mostrar")
+    e.classList.remove("divcarrito-ocultar")
 }
-
+close_carr=document.getElementById("close-carrito")
+close_carr.onclick = () => {closeCarrito(carr)}
+function closeCarrito(e){
+    e.classList.remove("divcarrito-mostrar")
+    e.classList.add("divcarrito-ocultar")
+}
 
 function agregarCarrito(producto,carrito,i){
     carrito[i]=producto;
@@ -83,97 +91,126 @@ function financiado(total,plan){
     }
 }
 
-bicicletas=[];
+const bicicletas=[];
 repuestos=[];
 equipamientos=[];
 miCarrito=[];
 
 //bibicletas
-const producto=new Producto ("Giant Talon 1","Giant","MontainBike","giant-talon1.jpg",2022,"Gris",5,85000);
-bicicletas.push(producto);
-const productoa=new Producto ("Giant Talon 2","Giant","MontainBike","giant-talon2.jpg",2021,"Azul metal",3,98000);
-bicicletas.push(productoa);
-const productob=new Producto ("Giant Talon 3","Giant","MontainBike","giant-talon3.jpg",2021,"Azul y Negro",3,105000);
-bicicletas.push(productob);
-const productoc=new Producto ("Giant Talon 4","Giant","MontainBike","giant-talon4.jpg",2021,"Negra",3,250000);
-bicicletas.push(productoc);
-const productod=new Producto ("Giant Fathon","Giant","MontainBike","fathon.jpg",2021,"Negra y azul",3,350000);
-bicicletas.push(productod);
-const productoe=new Producto ("Giant Advanced Pro","Giant","MontainBike","advanced.jpg",2022,"Naranja y Negro",4,1200000);
-bicicletas.push(productoe);
-const productof=new Producto ("Giant Advanced","Giant","MontainBike","advanced29.jpg",2022,"Negro y Bordo",4,900000);
-bicicletas.push(productof);
-const productog=new Producto ("Trek Marlin 5","Trek","MontainBike","marlin5.jpg",2022,"Negro",5,95000);
-bicicletas.push(productog);
-const productoh=new Producto ("Trek X-Caliver 7","Trek","MontainBike","xcaliver7.jpg",2022,"Azul",5,285000);
-bicicletas.push(productoh);
-const productoi=new Producto ("Trek X-Caliver 8","Trek","MontainBike","xcaliver8.jpg",2022,"Rojo",2,325000);
-bicicletas.push(productoi);
-const productoj=new Producto ("Trek X-Caliver 9","Trek","MontainBike","xcaliver9.jpg",2022,"Gris",1,485000);
-bicicletas.push(productoj);
-const productok=new Producto ("Trek Pro-Caliver 7","Trek","MontainBike","procaliver7.jpg",2022,"Negra",1,685000);
-bicicletas.push(productok);
-const productol=new Producto ("Trek Pro-Caliver 8","Trek","MontainBike","procaliver8.jpg",2022,"Gris",1,790000);
-bicicletas.push(productol);
-const productom=new Producto ("Trek Pro-Caliver 9","Trek","MontainBike","procaliver9.jpg",2022,"Negra",5,899000);
-bicicletas.push(productom);
-const producton=new Producto ("Venzo Elemento","Venzo","MontainBike","elemento.jpg",2022,"Rojo y Negro",1,485000);
-bicicletas.push(producton);
-const productoo=new Producto ("Venzo Stinger","Venzo","MontainBike","venzo-stinger.jpg",2022,"Verde",1,685000);
-bicicletas.push(productoo);
-const productop=new Producto ("Venzo Vulcan","Venzo","MontainBike","vulcan.jpg",2022,"Rojo y Negro",1,790000);
-bicicletas.push(productop);
+function almacenar(){
+    const producto=new Producto (1001,"Giant Talon 1","Giant","MontainBike","giant-talon1.jpg",2022,"Gris",5,85000);
+    bicicletas.push(producto);
+    const productoa=new Producto (1002,"Giant Talon 2","Giant","MontainBike","giant-talon2.jpg",2021,"Azul metal",3,98000);
+    bicicletas.push(productoa);
+    const productob=new Producto (1003,"Giant Talon 3","Giant","MontainBike","giant-talon3.jpg",2021,"Azul y Negro",3,105000);
+    bicicletas.push(productob);
+    const productoc=new Producto (1004,"Giant Talon 4","Giant","MontainBike","giant-talon4.jpg",2021,"Negra",3,250000);
+    bicicletas.push(productoc);
+    const productod=new Producto (1005,"Giant Fathon","Giant","MontainBike","fathon.jpg",2021,"Negra y azul",3,350000);
+    bicicletas.push(productod);
+    const productoe=new Producto (1006,"Giant Advanced Pro","Giant","MontainBike","advanced.jpg",2022,"Naranja y Negro",4,1200000);
+    bicicletas.push(productoe);
+    const productof=new Producto (1007,"Giant Advanced","Giant","MontainBike","advanced29.jpg",2022,"Negro y Bordo",4,900000);
+    bicicletas.push(productof);
+    const productog=new Producto (1008,"Trek Marlin 5","Trek","MontainBike","marlin5.jpg",2022,"Negro",5,95000);
+    bicicletas.push(productog);
+    const productoh=new Producto (1009,"Trek X-Caliver 7","Trek","MontainBike","xcaliver7.jpg",2022,"Azul",5,285000);
+    bicicletas.push(productoh);
+    const productoi=new Producto (1010,"Trek X-Caliver 8","Trek","MontainBike","xcaliver8.jpg",2022,"Rojo",2,325000);
+    bicicletas.push(productoi);
+    const productoj=new Producto (1011,"Trek X-Caliver 9","Trek","MontainBike","xcaliver9.jpg",2022,"Gris",1,485000);
+    bicicletas.push(productoj);
+    const productok=new Producto (1012,"Trek Pro-Caliver 7","Trek","MontainBike","procaliver7.jpg",2022,"Negra",1,685000);
+    bicicletas.push(productok);
+    const productol=new Producto (1013,"Trek Pro-Caliver 8","Trek","MontainBike","procaliver8.jpg",2022,"Gris",1,790000);
+    bicicletas.push(productol);
+    const productom=new Producto (1014,"Trek Pro-Caliver 9","Trek","MontainBike","procaliver9.jpg",2022,"Negra",5,899000);
+    bicicletas.push(productom);
+    const producton=new Producto (1015,"Venzo Elemento","Venzo","MontainBike","elemento.jpg",2022,"Rojo y Negro",1,485000);
+    bicicletas.push(producton);
+    const productoo=new Producto (1016,"Venzo Stinger","Venzo","MontainBike","venzo-stinger.jpg",2022,"Verde",1,685000);
+    bicicletas.push(productoo);
+    const productop=new Producto (1017,"Venzo Vulcan","Venzo","MontainBike","vulcan.jpg",2022,"Rojo y Negro",1,790000);
+    bicicletas.push(productop);
 
-const productoq=new Producto ("Trek Madone SL","Trek","Ruta","madone-sl-ruta.jpg",2022,"Blanca",1,700000);
-bicicletas.push( productoq);
-const productor=new Producto ("Trek Concept SL","Trek","Ruta","concept-ruta.jpg",2022,"Rojo y Negro",1,790000);
-bicicletas.push( productor);
-const productot=new Producto ("Trek Domane","Trek","Ruta","domane-ruta.jpg",2022,"Rojo",3,800000);
-bicicletas.push( productot);
-const productou=new Producto ("Trek Madone","Trek","Ruta","madone-ruta.jpg",2022,"Negro y gris",5,590000);
-bicicletas.push( productou);
-const productov=new Producto ("Trek Emonda Pro","Trek","Ruta","emonda pro-ruta.jpg",2022,"Azul y Celeste",1,1350000);
-bicicletas.push( productov);
-const productow=new Producto ("Trek Emonda","Trek","Ruta","emonda-ruta.jpg",2022,"Roja y Azul",1,900000);
-bicicletas.push( productow);
-const productox=new Producto ("Giant Contend","Giant","Ruta","contend-ruta.jpg",2022,"Negro y Naranja",2,580000);
-bicicletas.push( productox);
-const productoy=new Producto ("Giant SRC","Giant","Ruta","src-ruta.jpg",2022,"Negro y Azul",5,320000);
-bicicletas.push( productoy);
-const productoz=new Producto ("Giant TCR","Giant","Ruta","tcr-ruta.jpg",2022,"Negro y Azul",4,380000);
-bicicletas.push( productoz);
-const productoaa=new Producto ("Giant Advanced","Giant","Ruta","advanced-ruta.jpg",2022,"Blanca",6,300000);
-bicicletas.push(productoaa);
-const productoab=new Producto ("Giant Scorpion","Giant","Downhill","giant-down.jpg",2022,"Negro y Azul",1,1320000)
-bicicletas.push(productoab);
-const productoac=new Producto ("Trek Session 8","Trek","Downhill","session 8-down.jpg",2022,"Verde Militar",1,1900000);
-bicicletas.push(productoac);
-const productoad=new Producto ("Trek Session 9.6","Trek","Downhill","session-down.jpg",2022,"Roja",1,2200000);
-bicicletas.push(productoad);
-const productoae=new Producto ("Scott XLC","Scott","Downhill","scott-down.jpg",2022,"Gris",1,1790000);
-bicicletas.push(productoae);
-const productoaf=new Producto ("Capierre Atiwit","Capierre","Downhill","atiwit-down.jpg",2022,"Rojo y Negro",1,1290000);
-bicicletas.push(productoaf);
-const productoag=new Producto ("Scott GLory 2022","Scott","Downhill","glory-down.jpg",2022,"Dorada",1,1590000);
-bicicletas.push(productoag);
+    const productoq=new Producto (1018,"Trek Madone SL","Trek","Ruta","madone-sl-ruta.jpg",2022,"Blanca",1,700000);
+    bicicletas.push( productoq);
+    const productor=new Producto (1019,"Trek Concept SL","Trek","Ruta","concept-ruta.jpg",2022,"Rojo y Negro",1,790000);
+    bicicletas.push( productor);
+    const productot=new Producto (1020,"Trek Domane","Trek","Ruta","domane-ruta.jpg",2022,"Rojo",3,800000);
+    bicicletas.push( productot);
+    const productou=new Producto (1021,"Trek Madone","Trek","Ruta","madone-ruta.jpg",2022,"Negro y gris",5,590000);
+    bicicletas.push( productou);
+    const productov=new Producto (1022,"Trek Emonda Pro","Trek","Ruta","emonda pro-ruta.jpg",2022,"Azul y Celeste",1,1350000);
+    bicicletas.push( productov);
+    const productow=new Producto (1023,"Trek Emonda","Trek","Ruta","emonda-ruta.jpg",2022,"Roja y Azul",1,900000);
+    bicicletas.push( productow);
+    const productox=new Producto (1024,"Giant Contend","Giant","Ruta","contend-ruta.jpg",2022,"Negro y Naranja",2,580000);
+    bicicletas.push( productox);
+    const productoy=new Producto (1025,"Giant SRC","Giant","Ruta","src-ruta.jpg",2022,"Negro y Azul",5,320000);
+    bicicletas.push( productoy);
+    const productoz=new Producto (1026,"Giant TCR","Giant","Ruta","tcr-ruta.jpg",2022,"Negro y Azul",4,380000);
+    bicicletas.push( productoz);
+    const productoaa=new Producto (1027,"Giant Advanced","Giant","Ruta","advanced-ruta.jpg",2022,"Blanca",6,300000);
+    bicicletas.push(productoaa);
+    const productoab=new Producto (1028,"Giant Scorpion","Giant","Downhill","giant-down.jpg",2022,"Negro y Azul",1,1320000)
+    bicicletas.push(productoab);
+    const productoac=new Producto (1029,"Trek Session 8","Trek","Downhill","session 8-down.jpg",2022,"Verde Militar",1,1900000);
+    bicicletas.push(productoac);
+    const productoad=new Producto (1030,"Trek Session 9.6","Trek","Downhill","session-down.jpg",2022,"Roja",1,2200000);
+    bicicletas.push(productoad);
+    const productoae=new Producto (1031,"Scott XLC","Scott","Downhill","scott-down.jpg",2022,"Gris",1,1790000);
+    bicicletas.push(productoae);
+    const productoaf=new Producto (1032,"Capierre Atiwit","Capierre","Downhill","atiwit-down.jpg",2022,"Rojo y Negro",1,1290000);
+    bicicletas.push(productoaf);
+    const productoag=new Producto (1033,"Scott GLory 2022","Scott","Downhill","glory-down.jpg",2022,"Dorada",1,1590000);
+    bicicletas.push(productoag);
 
-//repuestos
-const producto10=new Producto ("camara rodado 29","rct","repuesto",2022,"Negra",33,1900);
-repuestos.push(producto10);
-const producto11=new Producto ("cubierta maxxis icon 29","maxxis","repuesto",2022,"Negra",14,15000);
-repuestos.push(producto11);
-const producto12=new Producto ("piñon shimano alivio 9s 11-36t","shimano","repuesto",2022,"negro",25,9000);
-repuestos.push(producto12);
-const producto13=new Producto ("descarrilador alivio shadow","shimano","repuesto",2022,"gris",140,12000);
-repuestos.push(producto13);
-const producto14=new Producto ("asciento","vento","repuesto",2022,"Blanco negro rojo",12,5000);
-repuestos.push(producto14);
-const producto15=new Producto ("Plato","shimano","repuesto",2022,"gris",21,25000);
-repuestos.push(producto15);
-const producto16=new Producto ("caja pedalera","shimano","repuesto",2022,"gris",15,5000);
-repuestos.push(producto16)
 
-bicicletas.forEach(element => {
+    //repuestos
+    const producto10=new Producto ("camara rodado 29","rct","repuesto",2022,"Negra",33,1900);
+    repuestos.push(producto10);
+    const producto11=new Producto ("cubierta maxxis icon 29","maxxis","repuesto",2022,"Negra",14,15000);
+    repuestos.push(producto11);
+    const producto12=new Producto ("piñon shimano alivio 9s 11-36t","shimano","repuesto",2022,"negro",25,9000);
+    repuestos.push(producto12);
+    const producto13=new Producto ("descarrilador alivio shadow","shimano","repuesto",2022,"gris",140,12000);
+    repuestos.push(producto13);
+    const producto14=new Producto ("asciento","vento","repuesto",2022,"Blanco negro rojo",12,5000);
+    repuestos.push(producto14);
+    const producto15=new Producto ("Plato","shimano","repuesto",2022,"gris",21,25000);
+    repuestos.push(producto15);
+    const producto16=new Producto ("caja pedalera","shimano","repuesto",2022,"gris",15,5000);
+    repuestos.push(producto16)
+    localStorage.removeItem("bicicletas");
+    localStorage.setItem("bicicletas",JSON.stringify(bicicletas));
+}
+
+
+const form_prod=document.getElementById("AgregarProd");
+const crearprod =()=>{
+    let nombre_prod=document.getElementById("NombreProd").value || "default";
+    let marca_prod=document.getElementById("MarcaProd").value;
+    let categoria_prod=document.getElementById("CategoriaProd").value;
+    let imagen_prod=document.getElementById("ImagenProd").value;
+    let modelo_prod=document.getElementById("ModeloProd").value;
+    let color_prod=document.getElementById("ColorProd").value;
+    let precio_prod=document.getElementById("PrecioProd").value;
+
+    const nuevo_prod= new Producto(nombre_prod,marca_prod,categoria_prod,imagen_prod,modelo_prod,color_prod,precio_prod);
+    bicicletas.push(nuevo_prod)
+
+}
+form_prod.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    if (form_prod.onclick){
+        crearprod();
+    }
+});
+
+almacenar();
+const bicicletasmostrar = JSON.parse(localStorage.getItem("bicicletas"));
+bicicletasmostrar.forEach(element => {
     const ui = new UI ();
     ui.mostrarProduct(element);
 });
