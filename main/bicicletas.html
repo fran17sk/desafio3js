@@ -245,22 +245,31 @@
     <section>
         <form action="" id="AgregarProd" class="NewProd">
             <h4 class="AgregarProd-title">AGREGAR UN NUEVO PRODUCTO</h4>
-            <input name="Nombre" type="text" placeholder="Nombre del producto" class="form-newprod">
             
-            <input name="Marca" type="text" placeholder="Marca del producto" class="form-newprod">
-            
-            <input name="Categoria" type="text" placeholder="Categoria del producto" class="form-newprod">
-            
-            <input name="Imagen" type="text" placeholder="Nombre de la Imagen del producto" class="form-newprod">
-            
-            <input name="Modelo" type="number" placeholder="Modelo del producto" class="form-newprod">
-            
-            <input name="Color" type="text" placeholder="Color del producto" class="form-newprod">
-            
-            <input name="Precio" type="number" placeholder="Precio del producto" class="form-newprod">
-            
+            <input name="Nombre" id="inNombre" type="text" placeholder="Nombre del producto" class="form-newprod">
+            <i id="innnNombre" class="posi oculto inicial fas fa-times-circle"></i>
+            <p id="innNombre" class="mensaje-newprod-oculto">Este campo no puede quedar vacio</p>
+            <input name="Marca" id="inMarca" type="text" placeholder="Marca del producto" class="form-newprod">
+            <i id="innnMarca" class="posi oculto inicial fas fa-times-circle"></i>
+            <p id="innMarca" class="mensaje-newprod-oculto">Este campo no puede quedar vacio</p>
+            <input name="Categoria" id="inCategoria" type="text" placeholder="Categoria del producto" class="form-newprod">
+            <i id="innnCategoria" class="posi oculto inicial fas fa-times-circle"></i>
+            <p id="innCategoria" class="mensaje-newprod-oculto">Este campo no puede quedar vacio</p>
+            <input name="Imagen" id="inImagen" type="text" placeholder="Nombre de la Imagen del producto" class="form-newprod">
+            <i id="innnImagen" class="posi oculto inicial fas fa-times-circle"></i>
+            <p id="innImagen" class="mensaje-newprod-oculto">Este campo no puede quedar vacio</p>
+            <input name="Modelo" id="inModelo" type="number" placeholder="Modelo del producto" class="form-newprod">
+            <i id="innnModelo" class="posi oculto inicial fas fa-times-circle"></i>
+            <p id="innModelo" class="mensaje-newprod-oculto">Este campo no puede quedar vacio</p>
+            <input name="Color" id="inColor" type="text" placeholder="Color del producto" class="form-newprod">
+            <i id="innnColor" class="posi oculto inicial fas fa-times-circle"></i>
+            <p id="innColor" class="mensaje-newprod-oculto">Este campo no puede quedar vacio</p>
+            <input name="Precio" id="inPrecio" type="number" placeholder="Precio del producto" class="form-newprod">
+            <i id="innnPrecio" class="posi oculto inicial fas fa-times-circle"></i>
+            <p id="innPrecio" class="mensaje-newprod-oculto">Este campo no puede quedar vacio</p>
+            <p class="mensaje-oculto" id="mensaje"><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
             <button type="submit" class="btn-addprod">ENVIAR DATOS</button>
-            
+            <p class="formulario-exito-oculto" id="formulario-exito">Formulario enviado exitosamente!</p>
         </form>
     </section>
     <footer>

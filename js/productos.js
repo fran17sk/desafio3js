@@ -188,23 +188,106 @@ function almacenar(){
 
 
 const form_prod=document.getElementById("AgregarProd");
+const text = document.querySelectorAll(".form-newprod");
 const crearprod =()=>{
-    let nombre_prod=document.getElementById("NombreProd").value || "default";
-    let marca_prod=document.getElementById("MarcaProd").value;
-    let categoria_prod=document.getElementById("CategoriaProd").value;
-    let imagen_prod=document.getElementById("ImagenProd").value;
-    let modelo_prod=document.getElementById("ModeloProd").value;
-    let color_prod=document.getElementById("ColorProd").value;
-    let precio_prod=document.getElementById("PrecioProd").value;
+    let nombre_prod=document.getElementById("inNombre").value || "default";
+    let marca_prod=document.getElementById("inMarca").value;
+    let categoria_prod=document.getElementById("inCategoria").value;
+    let imagen_prod=document.getElementById("inImagen").value;
+    let modelo_prod=document.getElementById("inModelo").value;
+    let color_prod=document.getElementById("inColor").value;
+    let precio_prod=document.getElementById("inPrecio").value;
 
     const nuevo_prod= new Producto(nombre_prod,marca_prod,categoria_prod,imagen_prod,modelo_prod,color_prod,precio_prod);
     bicicletas.push(nuevo_prod)
 
 }
+
+const valores = {
+    Nombre:false,
+    Marca:false,
+    Categoria:false,
+    Imagen:false,
+    Modelo:false,
+    Color:false,
+    Precio:false
+}
+
+const validarform = (e) =>{
+    switch (e.target.name){
+        case "Nombre":
+            validarCamp(e.target,"Nombre");
+        break;
+        case "Marca":
+            validarCamp(e.target,"Marca");
+        break;
+        case "Categoria":
+            validarCamp(e.target,"Categoria");
+        break;
+        case "Imagen":
+            validarCamp(e.target,"Imagen");
+        break;
+        case "Modelo":
+            validarCamp(e.target,"Modelo");
+        break;
+        case "Color":
+            validarCamp(e.target,"Color");
+        break;
+        case "Precio":
+            validarCamp(e.target,"Precio");
+        break;
+    }
+}
+
+const validarCamp = (form,campo) => {
+    if (form.value==""){
+        document.getElementById(`innn${campo}`).classList.remove("inicial");
+        document.getElementById(`in${campo}`).classList.add("form-crear-vacio");
+        document.getElementById(`in${campo}`).classList.remove("form-crear-valido");
+        document.getElementById(`inn${campo}`).classList.add("mensaje-newprod-activo");
+        document.getElementById(`inn${campo}`).classList.remove("mensaje-newprod-oculto");
+        document.getElementById(`innn${campo}`).classList.add("activo");
+        document.getElementById(`innn${campo}`).classList.remove("oculto");
+        document.getElementById(`innn${campo}`).classList.remove("fa-check-circle");
+        document.getElementById(`innn${campo}`).classList.add("fa-times-circle");
+        valores[campo]=false;
+    }else{
+        document.getElementById(`innn${campo}`).classList.remove("inicial");
+        document.getElementById(`in${campo}`).classList.remove("form-crear-vacio");
+        document.getElementById(`in${campo}`).classList.add("form-crear-valido");
+        document.getElementById(`inn${campo}`).classList.remove("mensaje-newprod-activo");
+        document.getElementById(`inn${campo}`).classList.add("mensaje-newprod-oculto");
+        document.getElementById(`innn${campo}`).classList.add("oculto");
+        document.getElementById(`innn${campo}`).classList.remove("activo");
+        document.getElementById(`innn${campo}`).classList.add("fa-check-circle");
+        document.getElementById(`innn${campo}`).classList.remove("fa-times-circle");
+        valores[campo]=true;
+    }
+}
+
+
+text.forEach(element => {
+
+    element.addEventListener('keyup', validarform);
+	element.addEventListener('blur', validarform);
+})
+
 form_prod.addEventListener('submit',(e)=>{
-    e.preventDefault();
-    if (form_prod.onclick){
+    if (valores.Nombre && valores.Marca && valores.Categoria && valores.Imagen && valores.Modelo && valores.Color && valores.Precio){
         crearprod();
+        form_prod.reset();
+        document.getElementById('formulario-exito').classList.add('formulario-exito-activo');
+        setTimeout(() => {
+			document.getElementById('formulario-exito').classList.remove('formulario-exito-activo');
+		}, 5000);
+        document.querySelectorAll('.oculto').forEach((icono) => {
+			icono.classList.remove('oculto');
+            icono.classList.add("inicial");
+		}
+		);
+    }else{
+        document.getElementById("mensaje").classList.remove("mensaje-oculto");
+        document.getElementById("mensaje").classList.add("mensaje-activo");
     }
 });
 

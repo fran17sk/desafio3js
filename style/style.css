@@ -761,6 +761,39 @@ footer div p{
     opacity: 90%;
     border: rgb(255, 255, 255) solid 2px;
 }
+.posi{
+    margin-top: -40px;
+    margin-bottom: 24px;
+    margin-left: 270px;
+}
+.oculto{
+    color: rgb(30, 255, 0);
+}
+.activo{
+    color: red;
+}
+.inicial{
+    color: white;
+}
+#mensaje{
+    background-color: rgb(179, 82, 82);
+    padding: 5px;
+}
+.mensaje-oculto{
+    display: none;
+}
+.mensaje-activo{
+    display: inline;
+}
+#formulario-exito{
+    color: rgb(76, 123, 50);
+}
+.formulario-exito-oculto{
+    display: none;
+}
+.formulario-exito-activo{
+    display: inline;
+}
 .centrar{
     flex-flow: row;
     align-items: center;
@@ -818,8 +851,21 @@ footer div p{
 .addcarrito:hover{
     color: rgb(76, 123, 50);
 }
-
-
+.mensaje-newprod-oculto{
+    display: none;
+}
+.mensaje-newprod-activo{
+    display: inline;
+    color: red;
+    font-weight:600;
+    font-size: 12px;
+}
+.form-crear-vacio{
+    border: red 2px solid;
+}
+.form-crear-valido{
+    border: solid 2px rgb(76, 123, 50) ;
+}
 
 /*CARRITO*/
 .divcarrito-oculto{
