@@ -132,7 +132,6 @@ function almacenar(){
     bicicletas.push(productoo);
     const productop=new Producto (1017,"Venzo Vulcan","Venzo","MontainBike","vulcan.jpg",2022,"Rojo y Negro",1,790000);
     bicicletas.push(productop);
-
     const productoq=new Producto (1018,"Trek Madone SL","Trek","Ruta","madone-sl-ruta.jpg",2022,"Blanca",1,700000);
     bicicletas.push( productoq);
     const productor=new Producto (1019,"Trek Concept SL","Trek","Ruta","concept-ruta.jpg",2022,"Rojo y Negro",1,790000);
@@ -186,24 +185,36 @@ function almacenar(){
     localStorage.setItem("bicicletas",JSON.stringify(bicicletas));
 }
 
+function addprodtopage(){
+    almacenar();
+    const bicicletasmostrar = JSON.parse(localStorage.getItem("bicicletas"));
+    bicicletasmostrar.forEach(element => {
+        const ui = new UI ();
+        ui.mostrarProduct(element);
+    });
+}
+
+addprodtopage();
 
 const form_prod=document.getElementById("AgregarProd");
 const text = document.querySelectorAll(".form-newprod");
 const crearprod =()=>{
+    let cod_prod = document.getElementById("inCodigo").value;
     let nombre_prod=document.getElementById("inNombre").value || "default";
-    let marca_prod=document.getElementById("inMarca").value;
-    let categoria_prod=document.getElementById("inCategoria").value;
-    let imagen_prod=document.getElementById("inImagen").value;
-    let modelo_prod=document.getElementById("inModelo").value;
-    let color_prod=document.getElementById("inColor").value;
-    let precio_prod=document.getElementById("inPrecio").value;
+    let marca_prod=document.getElementById("inMarca").value||"default";
+    let categoria_prod=document.getElementById("inCategoria").value||"default";
+    let imagen_prod="default.jpg";
+    let modelo_prod=document.getElementById("inModelo").value||"default";
+    let color_prod=document.getElementById("inColor").value||"default";
+    let precio_prod=document.getElementById("inPrecio").value||"default";
 
-    const nuevo_prod= new Producto(nombre_prod,marca_prod,categoria_prod,imagen_prod,modelo_prod,color_prod,precio_prod);
-    bicicletas.push(nuevo_prod)
+    const nuevo_prod= new Producto(cod_prod,nombre_prod,marca_prod,categoria_prod,imagen_prod,modelo_prod,color_prod,1,precio_prod);
+    bicicletas.push(nuevo_prod);
 
 }
 
 const valores = {
+    Codigo:false,
     Nombre:false,
     Marca:false,
     Categoria:false,
@@ -215,6 +226,9 @@ const valores = {
 
 const validarform = (e) =>{
     switch (e.target.name){
+        case "Codigo":
+            validarCamp(e.target,"Codigo");
+        break;
         case "Nombre":
             validarCamp(e.target,"Nombre");
         break;
@@ -273,7 +287,8 @@ text.forEach(element => {
 })
 
 form_prod.addEventListener('submit',(e)=>{
-    if (valores.Nombre && valores.Marca && valores.Categoria && valores.Imagen && valores.Modelo && valores.Color && valores.Precio){
+    e.preventDefault();
+    if (valores.Codigo && valores.Nombre && valores.Marca && valores.Categoria && valores.Imagen && valores.Modelo && valores.Color && valores.Precio){
         crearprod();
         form_prod.reset();
         document.getElementById('formulario-exito').classList.add('formulario-exito-activo');
@@ -285,18 +300,19 @@ form_prod.addEventListener('submit',(e)=>{
             icono.classList.add("inicial");
 		}
 		);
+        localStorage.removeItem("bicicletas");
+        localStorage.setItem("bicicletas",JSON.stringify(bicicletas));
+        aux=bicicletas.length;
+        const ui = new UI;
+        ui.mostrarProduct(bicicletas[aux-1]);
     }else{
         document.getElementById("mensaje").classList.remove("mensaje-oculto");
         document.getElementById("mensaje").classList.add("mensaje-activo");
     }
 });
 
-almacenar();
-const bicicletasmostrar = JSON.parse(localStorage.getItem("bicicletas"));
-bicicletasmostrar.forEach(element => {
-    const ui = new UI ();
-    ui.mostrarProduct(element);
-});
+
+
 
 
 

@@ -143,7 +143,6 @@
             </div>
         </nav>
     </header>
-    <div class="espacioenblanco"></div>
     <div id="MiCarrito" class="divcarrito-oculto derecha">
         <div class="titulo-carrito">
             <h4 class="info-carrito">Nombre Producto</h4>
@@ -183,7 +182,14 @@
             </select>
             <img src="../img/productos/xcaliver9.jpg" alt="" class="img-carrito">
         </div>
+        <div class="totales">
+            <div class="subtotal"><P class="txt">SUBTOTAL</P><p>1000000</p></div>
+            <button class="comprar">COMPRAR CARRITO</button>
+
+        </div>
     </div>
+    <div class="espacioenblanco"></div>
+    
     <main id="gridAreas">
             <section class="titulo">
                 <h1 class="tituloprod">Productos Disponibles</h1>
@@ -246,6 +252,10 @@
         <form action="" id="AgregarProd" class="NewProd">
             <h4 class="AgregarProd-title">AGREGAR UN NUEVO PRODUCTO</h4>
             
+            <input name="Codigo" id="inCodigo" type="text" placeholder="Codigo del producto" class="form-newprod">
+            <i id="innnCodigo" class="posi oculto inicial fas fa-times-circle"></i>
+            <p id="innCodigo" class="mensaje-newprod-oculto">Este campo no puede quedar vacio</p>
+
             <input name="Nombre" id="inNombre" type="text" placeholder="Nombre del producto" class="form-newprod">
             <i id="innnNombre" class="posi oculto inicial fas fa-times-circle"></i>
             <p id="innNombre" class="mensaje-newprod-oculto">Este campo no puede quedar vacio</p>
@@ -271,6 +281,7 @@
             <button type="submit" class="btn-addprod">ENVIAR DATOS</button>
             <p class="formulario-exito-oculto" id="formulario-exito">Formulario enviado exitosamente!</p>
         </form>
+        <button class="refrescar" id="refrescar">ACTUALIZAR PRODUCTOS</button>
     </section>
     <footer>
         <section class="seccionFotFlex fondogris">
