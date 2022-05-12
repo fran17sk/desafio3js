@@ -248,7 +248,7 @@ a{
     display: flex;
     flex-flow: column;
 }
-.mensaje{
+.mensj{
     height: 80px;
     width: 80%;
 }
@@ -689,17 +689,16 @@ footer div p{
 }
 
 
-
 /*NUEVO PRODUCTO*/
-.NewProd{
+.NuevoProd{
     width: 100%;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: column;
     align-items: center;
     margin-top: 20px;
     margin-bottom: 50px;
 }
-.NewProd div{
+.NuevoProd div{
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -733,6 +732,11 @@ footer div p{
     display: flex;
 }
 
+/*FILTROS*/
+.cheack{
+    margin-top: 3px;
+}
+
 /*PRODUCTOS*/
 .prodFlex{
     display: flex;
@@ -741,6 +745,27 @@ footer div p{
 .prodFlex div{
     margin: 20px;
 }
+.card:hover .add-to-cart {
+    transform: translateX(0);
+    opacity: 100%;
+}
+.add-to-cart {
+    background-color: black;
+    z-index: 2;
+    color: white;
+    position: absolute;
+    right: 0;
+    top: 5%;
+    padding: .5em 1em; 
+    transition: .5s ease;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    opacity: 0%;
+}
+
 /*CARDS*/
 .img-prod{
     width: 240px;
@@ -841,6 +866,7 @@ footer div p{
 .addcarrito{
     background-color: rgba(0, 0, 0, 0);
     color: rgb(0, 0, 0);
+    border: none;
     border-radius: 80px;
     padding: 10px;
     font-weight: 1000;
@@ -868,9 +894,63 @@ footer div p{
 }
 
 /*CARRITO*/
-#MiCarrito{
-    top: 170px;
+
+
+.cart-modal-overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100%;
+    transform: translateY(-200%);
+    transition: .5s ease-out;
 }
+.cart-modal-overlay.open {
+    transform: translateY(0%);
+}
+.cart-modal {
+    height: 100vh;
+    width: 38%;
+    background-color: rgb(76, 123, 50);
+    float: right;
+    overflow: scroll;
+    overflow-x: hidden;
+    border-left: #fff solid 2px;
+    padding: 10px 20px 0 20px;
+}
+.cart-btn {
+    display: flex;
+    justify-content: flex-end;
+}
+#cart {
+    position: relative;
+    font-size: 2rem;
+    cursor: pointer;
+    margin: -10px 10px 0 0;
+}
+.cart-quantity {
+    color: white;
+    background-color: red;
+    padding: .2em .3em;
+    position: absolute;
+    margin: -24px 5px 0 0;
+    right: 0;
+    border: solid 2px red;
+    border-radius: 15px;
+    font-weight: bolder;
+}
+.product-quantity{
+    width: 40px;
+    font-size: 12px;
+}
+.subir{
+    margin-top: -24px;
+}
+
+#MiCarrito{
+    z-index: 10000;
+    background-color: rgba(76, 123, 50, 0);
+}
+
+
 .divcarrito-oculto{
     display: none;
     position: relative;
@@ -884,15 +964,30 @@ footer div p{
 .divcarrito-mostrar{
     display: block;
 }
+.total{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-end;
+    border-top: #000 solid 1px;
+}
+.total-price{
+    font-size: 30px;
+}
 .exit{
-    color: rgb(76, 123, 50);
+    color: rgb(0, 0, 0);
     width: 20px;
     height: 20px;
+    margin-right: 60px;
 }
 .titulo-carrito{
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+}
+.titulos-carrito{
+    font-weight: 1000;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
 }
 .info-carrito{
     font-weight: 800;
@@ -913,6 +1008,7 @@ footer div p{
     color: rgb(0, 0, 0);
     border: solid rgba(0, 0, 0, 0);
     margin-top: -10px;
+    width: 40px;
 }
 .img-carrito{
     width: 50px;
@@ -920,7 +1016,6 @@ footer div p{
 }
 .derecha{
     float: right;
-    position: sticky;
 }
 .totales{
     display: flex;
@@ -940,7 +1035,7 @@ footer div p{
 .txt{
     font-weight: 1200;
 }
-.comprar{
+.purchase-btn{
     border-radius: 10px;
     border: rgb(76, 123, 50) solid 1px;
     height: 30px;
@@ -948,8 +1043,9 @@ footer div p{
     font-weight: 1000;
     background-color: white;
     color: rgb(76, 123, 50);
+    margin-top: 20px;
 }
-.comprar:hover{
+.purchase-btn:hover{
     background-color: rgb(76, 123, 50);
     color: white;
 }

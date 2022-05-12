@@ -6,10 +6,12 @@ $(document).ready(function(){
 		if ( $(window).scrollTop() > altura ){
 			$('.menu').addClass('menu-fixed-redes');
             $('.menu').removeClass('menu-fixed');
+			$('.cart-modal').addClass('subir');
 
 		} else {
 			$('.menu').removeClass('menu-fixed-redes');
             $('.menu').addClass('menu-fixed');
+			$('.cart-modal').removeClass('subir');
 		}
 	});
     $(window).on('scroll', function(){

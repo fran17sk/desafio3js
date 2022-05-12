@@ -21,42 +21,19 @@ class UI {
         const element=document.createElement('div');
         element.classList.add('espaciado')
         element.innerHTML = `
-                <div id=${producto.cod} class="producto">
+                <div id=${producto.cod} class="producto card">
                 <img src="../img/productos/${producto.imagen || "default.jpg"}" alt="" class="img-prod">
-                <h5>$ ${producto.precio}</h5>
+                <h5 class="product-price">$ ${producto.precio}</h5>
                 <div class="c">
                     <h6 class="titleProd">${producto.nombre}</h6>
-                    <h6 class="addcarrito">AGREGAR AL CARRITO</h6>
                 </div>
+                <button class="add-to-cart">COMPRAR</button>
                 </div>
         `;
         productList.appendChild(element);
     }
-    agregarProducto(producto){
-        const carr=document.getElementById("carrito")
-
-    }
 }
 
-
-//MOSTRAR CARRITO
-const mostrarCarrito=document.getElementById("carrito")
-const carr=document.getElementById("MiCarrito")
-mostrarCarrito.onclick = () => {viewCarrito(carr)}
-function viewCarrito(e){
-    e.classList.add("divcarrito-mostrar")
-    e.classList.remove("divcarrito-ocultar")
-}
-close_carr=document.getElementById("close-carrito")
-close_carr.onclick = () => {closeCarrito(carr)}
-function closeCarrito(e){
-    e.classList.remove("divcarrito-mostrar")
-    e.classList.add("divcarrito-ocultar")
-}
-
-function agregarCarrito(producto,carrito,i){
-    carrito[i]=producto;
-}
 function sumarValoresPropiedades(datos, fn) {
     return datos.map(typeof fn === 'function' ? fn : d => d[fn]).reduce((a, v) => a + v, 0);
 }
@@ -193,9 +170,107 @@ function addprodtopage(){
         ui.mostrarProduct(element);
     });
 }
-
 addprodtopage();
 
+
+
+//MOSTRAR CARRITO
+const mostrarCarrito=document.getElementById("carrito")
+const carr=document.getElementById("MiCarrito")
+const addToCart = document.getElementsByClassName("add-to-cart");
+
+mostrarCarrito.onclick = () => {viewCarrito(carr)}
+function viewCarrito(e){
+    e.classList.add("open");
+}
+
+close_carr=document.getElementById("close-carrito")
+close_carr.onclick = () => {closeCarrito(carr)}
+function closeCarrito(e){
+    e.classList.remove("open")
+}
+carr.addEventListener("click", (e)=>{
+    if (e.target.classList.contains("cart-modal-overlay")){
+        carr.classList.remove("open");
+    }
+})
+
+for (let i=0; i < addToCart.length; i++) {
+    let boton = addToCart[i];
+    boton.addEventListener("click", agregarCarrito)
+}
+
+function agregarCarrito(e){
+    let boton = e.target;
+    let CardItem = boton.parentElement;
+    let ProdId=CardItem.getAttribute("id");
+    let prodName = CardItem.querySelector("h6").innerText;
+    let price = CardItem.querySelector(".product-price").innerText;
+    let imageSrc = CardItem.querySelector(".img-prod").src;
+
+    agregarElem(ProdId,prodName,price,imageSrc);
+}
+//<
+function agregarElem(ProdId,prodName,price,imageSrc){
+    let productRow = document.createElement("div");
+    let productRows = document.querySelector(".product-rows");
+    let prodArray = document.getElementsByClassName("product-row");
+
+    for(let i=0; i<prodArray.length; i++) {
+        if(prodArray[i].getAttribute("id")== ProdId) {
+            alert("Este producto ya existe en el carrito");
+            return;
+        }
+    }
+    //inyectar el html al carrito
+    let cartRowItem = `
+        <div class="elemento-carrito product-row" id="${ProdId}">
+            <h4 class="info-carrito">${prodName}</h4>
+            <h4 class="info-carrito cart-price">${price}</h4>
+            <input class="selector-carrito product-quantity" type="number" value="1">
+            <img class="img-carrito" src="${imageSrc}">
+            <svg id="" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle remove-btn" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+        </div>
+    `
+    productRow.innerHTML = cartRowItem;
+    productRows.append(productRow);
+    productRow.querySelector(".remove-btn").addEventListener("click", removeItem);
+    productRow.querySelector(".product-quantity").addEventListener("change", cambiarCantidad);
+    updatePrice();
+
+}
+function removeItem(e) {
+    let btnCliked = e.target;
+    btnCliked.parentElement.parentElement.remove();
+    updatePrice();
+}
+
+//cambiemos cantidades
+function cambiarCantidad(e){
+    let cantidad = e.target.value;
+    if(isNaN(cantidad) || cantidad <= 0) {
+        cantidad = 1;
+    }
+    updatePrice();
+}
+
+//actualizar el total
+const updatePrice=()=>{
+    let total = 0;
+    productRows.forEach=(element)=> {
+        let price = parseFloat(element.querySelector(".cart-price").innerText.replace("$",""));
+        let cantidad = element.querySelector(".product-quantity").value;
+        total += price * cantidad;
+    }
+    document.querySelector(".total-price").innerText = "$" + total;
+    document.querySelector(".cart-quantity").textContent = productRows.length;
+}
+
+
+//FORMULARIO PARA AGREGAR UN PRODUCTO
 const form_prod=document.getElementById("AgregarProd");
 const text = document.querySelectorAll(".form-newprod");
 const crearprod =()=>{
