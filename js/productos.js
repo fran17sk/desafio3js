@@ -14,6 +14,14 @@ class Producto{
         this.precio=this.precio*1.21;
     }
 }
+class Carrito{
+    constructor(id,prodName,price,imgProd){
+        this.id=id;
+        this.prodName=prodName;
+        this.price=price;
+        this.imgPord=imgProd;
+    }
+}
 
 class UI {
     mostrarProduct(producto){
@@ -33,84 +41,25 @@ class UI {
         productList.appendChild(element);
     }
 }
-
-function sumarValoresPropiedades(datos, fn) {
-    return datos.map(typeof fn === 'function' ? fn : d => d[fn]).reduce((a, v) => a + v, 0);
-}
-function subtotal(cantidad,lista,indice){
-    let subtotal=cantidad*lista[indice];
-    return subtotal;
-}
-function financiado(total,plan){
-    if (plan==0){
-        let totalfin=total*0.90;
-        return totalfin;
-    }
-    if (plan==1){
-        let totalfin=total*1.5;
-        return totalfin;
-    }
-    if (plan==3){
-        let totalfin=total*1.12;
-        return totalfin;
-    }
-    if (plan==6){
-        let totalfin=total*1.25;
-        return totalfin;
-    }
-    if (plan==9){
-        let totalfin=total*1.35;
-        return totalfin;
-    }
-    if (plan==12){
-        let totalfin=total*1.45;
-        return totalfin;
-    }
-}
-
-let bicicletas=[];
-bicicletas=JSON.parse(data)
-repuestos=[];
-equipamientos=[];
-miCarrito=[];
-
-localStorage.setItem("bicicletas",JSON.stringify(bicicletas));
+bicicletas=JSON.parse(data);
 
 function addprodtopage(){
-    const bicicletasmostrar = JSON.parse(localStorage.getItem("bicicletas"));
-    bicicletasmostrar.forEach(element => {
+    bicicletas.forEach(element => {
         const ui = new UI ();
         ui.mostrarProduct(element);
     });
 }
 addprodtopage();
 
+//AGREGAMOS LOS PRODUCTOS AL CARRITO EN EL LOCAL STORAGE
 
-
-//MOSTRAR CARRITO
-const mostrarCarrito=document.getElementById("carrito")
-const carr=document.getElementById("MiCarrito")
 const addToCart = document.getElementsByClassName("add-to-cart");
-
-mostrarCarrito.onclick = () => {viewCarrito(carr)}
-function viewCarrito(e){
-    e.classList.add("open");
-}
-
-close_carr=document.getElementById("close-carrito")
-close_carr.onclick = () => {closeCarrito(carr)}
-function closeCarrito(e){
-    e.classList.remove("open")
-}
-carr.addEventListener("click", (e)=>{
-    if (e.target.classList.contains("cart-modal-overlay")){
-        carr.classList.remove("open");
-    }
-})
+const miCarrito = JSON.parse(localStorage.getItem('carrito'))||[];
 
 for (let i=0; i < addToCart.length; i++) {
     let boton = addToCart[i];
     boton.addEventListener("click", agregarCarrito)
+    boton.addEventListener("click",Mostrar_Prods_Carrito)
 }
 
 function agregarCarrito(e){
@@ -120,68 +69,33 @@ function agregarCarrito(e){
     let prodName = CardItem.querySelector("h6").innerText;
     let price = CardItem.querySelector(".product-price").innerText;
     let imageSrc = CardItem.querySelector(".img-prod").src;
-
-    agregarElem(ProdId,prodName,price,imageSrc);
-}
-//<
-function agregarElem(ProdId,prodName,price,imageSrc){
-    let productRow = document.createElement("div");
-    let productRows = document.querySelector(".product-rows");
-    let prodArray = document.getElementsByClassName("product-row");
-
-    for(let i=0; i<prodArray.length; i++) {
-        if(prodArray[i].getAttribute("id")== ProdId) {
-            alert("Este producto ya existe en el carrito");
-            return;
-        }
+    let prodAdd;
+    band=0;
+    if(miCarrito.length==0){
+        band=1;
+    }else{
+        miCarrito.forEach(element=>{
+            if(ProdId==element.id){
+                band=0
+            }else{
+                band=1;
+            }
+        })
     }
-    //inyectar el html al carrito
-    let cartRowItem = `
-        <div class="elemento-carrito product-row" id="${ProdId}">
-            <h4 class="info-carrito">${prodName}</h4>
-            <h4 class="info-carrito cart-price">${price}</h4>
-            <input class="selector-carrito product-quantity" type="number" value="1">
-            <img class="img-carrito" src="${imageSrc}">
-            <svg id="" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle remove-btn" viewBox="0 0 16 16">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                </svg>
-        </div>
-    `
-    productRow.innerHTML = cartRowItem;
-    productRows.append(productRow);
-    productRow.querySelector(".remove-btn").addEventListener("click", removeItem);
-    productRow.querySelector(".product-quantity").addEventListener("change", cambiarCantidad);
-    updatePrice();
-
-}
-function removeItem(e) {
-    let btnCliked = e.target;
-    btnCliked.parentElement.parentElement.remove();
-    updatePrice();
-}
-
-//cambiemos cantidades
-function cambiarCantidad(e){
-    let cantidad = e.target.value;
-    if(isNaN(cantidad) || cantidad <= 0) {
-        cantidad = 1;
+    if(band==0){
+        alert("El articulo ya se encuentra en el carrito..!")
     }
-    updatePrice();
-}
-
-//actualizar el total
-function updatePrice(){
-    let total = 0;
-    productRows.forEach=(element)=> {
-        let price = parseFloat(element.querySelector(".cart-price").innerText.replace("$",""));
-        let cantidad = element.querySelector(".product-quantity").value;
-        total += price * cantidad;
+    if(band==1){
+        prodAdd= new Carrito(ProdId,prodName,price,imageSrc);
+        almacenar(prodAdd);
+        band=0;
     }
-    document.querySelector(".total-price").innerText = "$" + total;
-    document.querySelector(".cart-quantity").textContent = productRows.length;
 }
-
+function almacenar(prod){
+    miCarrito.push(prod);
+    localStorage.removeItem('carrito');
+    localStorage.setItem('carrito',JSON.stringify(miCarrito));
+}
 
 //FORMULARIO PARA AGREGAR UN PRODUCTO
 const form_prod=document.getElementById("AgregarProd");
@@ -319,6 +233,41 @@ form_prod.addEventListener('submit',(e)=>{
 let nombre,precio,cantidad,total;
 let codigo, conf;
 let totalA;
+
+function sumarValoresPropiedades(datos, fn) {
+    return datos.map(typeof fn === 'function' ? fn : d => d[fn]).reduce((a, v) => a + v, 0);
+}
+function subtotal(cantidad,lista,indice){
+    let subtotal=cantidad*lista[indice];
+    return subtotal;
+}
+function financiado(total,plan){
+    if (plan==0){
+        let totalfin=total*0.90;
+        return totalfin;
+    }
+    if (plan==1){
+        let totalfin=total*1.5;
+        return totalfin;
+    }
+    if (plan==3){
+        let totalfin=total*1.12;
+        return totalfin;
+    }
+    if (plan==6){
+        let totalfin=total*1.25;
+        return totalfin;
+    }
+    if (plan==9){
+        let totalfin=total*1.35;
+        return totalfin;
+    }
+    if (plan==12){
+        let totalfin=total*1.45;
+        return totalfin;
+    }
+}
+
 
 band=0
 if (band == 1){
