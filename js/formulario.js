@@ -25,10 +25,11 @@ const crear = ()=>{
 	let usuario = document.getElementById("usuario").value;
 	let nombre = document.getElementById("nombre").value;
 	let password = document.getElementById("password").value;
+	var strHash = md5(password);
 	let correo = document.getElementById("correo").value;
 	let telefono = document.getElementById("telefono").value;
 
-	const cliente = new Cuenta (usuario,nombre,password,correo,telefono);
+	const cliente = new Cuenta (usuario,nombre,strHash,correo,telefono);
 	clientes.push(cliente);
 }
 
@@ -44,6 +45,7 @@ const validarFormulario = (e) => {
 	switch (e.target.name) {
 		case "usuario":
 			validarCampo(expresiones.usuario, e.target, 'usuario');
+			validarUser()
 		break;
 		case "nombre":
 			validarCampo(expresiones.nombre, e.target, 'nombre');
@@ -80,6 +82,23 @@ const validarCampo = (expresion, input, campo) => {
 		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
 		campos[campo] = false;
 	}
+}
+
+const validarUser = () => {
+	const usernew = document.getElementById('usuario').value;
+	let clientesval=JSON.parse(localStorage.getItem('clientes'))||[];
+	clientesval.forEach(element=>{
+		if (element.usuario==usernew){
+			console.log(element.usuario,usernew)
+			campos['usuario']=false;
+			document.getElementById(`grupo__usuario`).classList.add('formulario__grupo-incorrecto');
+			document.getElementById(`grupo__usuario`).classList.remove('formulario__grupo-correcto');
+			document.querySelector(`#grupo__usuario i`).classList.add('fa-times-circle');
+			document.querySelector(`#grupo__usuario i`).classList.remove('fa-check-circle');
+			document.querySelector(`#grupo__usuario .formulario__input-error`).classList.add('formulario__input-error-activo');
+			
+		}
+	})
 }
 
 const validarPassword2 = () => {
@@ -185,8 +204,9 @@ formularioLogin.addEventListener('submit', (f) =>{
 	let band=false;
     userin=document.getElementById("user").value;
     passs=document.getElementById("pass").value;
+	var strHash = md5(passs);
     for(let client of clientes){
-        if ((client.usuario===userin) && (client.password===passs)){
+        if ((client.usuario===userin) && (client.password===strHash)){
             band=true;
         }
     }

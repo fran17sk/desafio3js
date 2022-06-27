@@ -1,1 +1,0 @@
-filtros=document.querySelectorAll(".cheack");

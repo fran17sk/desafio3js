@@ -125,6 +125,7 @@ a{
 .espacioenblanco{
     height:165px;
 }
+
 .titulo{
     display: flex;
     flex-flow: row nowrap;

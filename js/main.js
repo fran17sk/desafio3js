@@ -17,13 +17,19 @@ carr.addEventListener("click", (e)=>{
 })
 
 //MOSTRAR ELEMENTOS EN EL CARRITO
-let constcarr=documetn.getElementById('MiCarrito')
-const Productos_carrito=JSON.parse(localStorage.getItem('carrito'))
-console.log(Productos_carrito)
-function Mostrar_Prods_Carrito(){
-
-}
+const botclick=document.getElementsByClassName("add-to-cart");
+const Products_rows=document.getElementById('product-rows')
 const productRows = document.getElementsByClassName("product-row");
+let Productos_carrito=JSON.parse(localStorage.getItem('carrito'))||[];
+
+actualizarCarrito();
+
+function actualizarCarrito(){    
+    Productos_carrito.forEach(element=>{
+        agregarElem(element.id,element.prodName,element.price,element.imgPord)
+    })
+}
+
 function agregarElem(ProdId,prodName,price,imageSrc){
     let productRow = document.createElement("div");
     let productRows = document.querySelector(".product-rows");
@@ -53,12 +59,28 @@ function agregarElem(ProdId,prodName,price,imageSrc){
     productRow.querySelector(".remove-btn").addEventListener("click", removeItem);
     productRow.querySelector(".product-quantity").addEventListener("change", cambiarCantidad)
     updatePrice();
-
 }
+
 function removeItem(e) {
     let btnCliked = e.target;
+    let iddeleted=btnCliked.parentElement;
+    let elemento=iddeleted.getAttribute("id")
     btnCliked.parentElement.parentElement.remove();
+    let i=0;
+    let indice;
+    Productos_carrito.forEach(element=>{
+        if(element.id==elemento){
+            indice=i;
+            console.log(indice);
+            Productos_carrito.splice(indice,1);
+            console.log(Productos_carrito)
+        }
+        i++;
+    })
+    localStorage.removeItem('carrito');
+    localStorage.setItem('carrito',JSON.stringify(Productos_carrito));
     updatePrice();
+
 }
 
 //cambiemos cantidades
@@ -111,6 +133,11 @@ $(document).ready(function(){
 	});
 
 });
+
+//sweet alert
+function msj(){
+    swal('PROXIMAMENTE','Esta seccion no pertenece al proyecto final','error')
+}
 
 function myFunction0() {
 	var x = document.getElementById("pass");

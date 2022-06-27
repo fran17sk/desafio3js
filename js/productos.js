@@ -10,9 +10,6 @@ class Producto{
         this.stock=stock;
         this.precio=precio;
     }
-    sumaIva(){
-        this.precio=this.precio*1.21;
-    }
 }
 class Carrito{
     constructor(id,prodName,price,imgProd){
@@ -41,26 +38,43 @@ class UI {
         productList.appendChild(element);
     }
 }
-bicicletas=JSON.parse(data);
+let bicicletas=[];
 
-function addprodtopage(){
-    bicicletas.forEach(element => {
-        const ui = new UI ();
-        ui.mostrarProduct(element);
-    });
+const addprodtopage=()=>{
+    fetch('../data/data.json')
+        .then(response=>response.json())
+        .then(result => {
+            bicicletas = result;
+            bicicletas.forEach(element => {
+                const ui = new UI ();
+                ui.mostrarProduct(element);
+            });
+        })
+        .catch(error=>{
+            let listado=document.getElementById('productos')
+            listado.innerHTML+='<p>ERROR 404. File not that found...</p>'
+        })
+    
 }
 addprodtopage();
+
 
 //AGREGAMOS LOS PRODUCTOS AL CARRITO EN EL LOCAL STORAGE
 
 const addToCart = document.getElementsByClassName("add-to-cart");
 const miCarrito = JSON.parse(localStorage.getItem('carrito'))||[];
+Botones();
 
-for (let i=0; i < addToCart.length; i++) {
-    let boton = addToCart[i];
-    boton.addEventListener("click", agregarCarrito)
-    boton.addEventListener("click",Mostrar_Prods_Carrito)
+function Botones(){
+    setTimeout(()=>{
+        for (let i=0; i < addToCart.length; i++) {
+            let boton = addToCart[i];
+            boton.addEventListener("click", agregarCarrito);
+        }
+    },1000);
+    
 }
+
 
 function agregarCarrito(e){
     let boton = e.target;
@@ -70,25 +84,32 @@ function agregarCarrito(e){
     let price = CardItem.querySelector(".product-price").innerText;
     let imageSrc = CardItem.querySelector(".img-prod").src;
     let prodAdd;
+    let s;
     band=0;
     if(miCarrito.length==0){
         band=1;
     }else{
         miCarrito.forEach(element=>{
             if(ProdId==element.id){
-                band=0
+                band=0;
+                s=0;
             }else{
                 band=1;
             }
         })
     }
-    if(band==0){
+    if(s==0){
         alert("El articulo ya se encuentra en el carrito..!")
+        return;
     }
-    if(band==1){
+    if(band==1 && s!=0){
         prodAdd= new Carrito(ProdId,prodName,price,imageSrc);
         almacenar(prodAdd);
         band=0;
+        swal('','Producto añadido al carrito','success')
+        setTimeout(() => {
+			window.location.reload();
+		}, 2000);
     }
 }
 function almacenar(prod){
@@ -213,7 +234,55 @@ form_prod.addEventListener('submit',(e)=>{
     }
 });
 
-
+//FILTROS
+function filtrar(){
+    swal('','Productos filtrados','success')
+    if (document.getElementById('montainbike').checked){
+        Productos=document.querySelectorAll('.espaciado')
+        Productos.forEach(element=>{
+            element.remove();
+        });
+        let listafill=bicicletas.filter(element=>element.categoria=='MontainBike')
+        function addprodtopage(){
+            listafill.forEach(element => {
+                const ui = new UI ();
+                ui.mostrarProduct(element);
+            });
+        }
+        addprodtopage();
+    }
+    if (document.getElementById('downhill').checked){
+        Productos=document.querySelectorAll('.espaciado')
+        Productos.forEach(element=>{
+            element.remove();
+        });
+        let listafill=bicicletas.filter(element=>element.categoria=='Downhill')
+        function addprodtopage(){
+            listafill.forEach(element => {
+                const ui = new UI ();
+                ui.mostrarProduct(element);
+            });
+        }
+        addprodtopage()
+        
+    }
+    if (document.getElementById('ruteras').checked){
+        Productos=document.querySelectorAll('.espaciado')
+        Productos.forEach(element=>{
+            element.remove();
+        });
+        let listafill=bicicletas.filter(element=>element.categoria=='Ruta')
+        function addprodtopage(){
+            listafill.forEach(element => {
+                const ui = new UI ();
+                ui.mostrarProduct(element);
+            });
+        }
+        addprodtopage()
+        
+    }
+    Botones();
+}
 
 
 

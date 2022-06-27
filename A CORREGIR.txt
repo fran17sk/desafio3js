@@ -1,0 +1,6 @@
+LAS SECCIONES A CORREGIR DE MI PROYECTO SON:
+    INICIO(index.html)
+    BICICLETAS
+    CONTACTO
+    MI CUENTA(queria aclarar que cuando guardo la contraseña del usuario la hasheo que es lo que me enseñaron en la facultad, y luego para iniciar sesion compara los hash)
+    MI CARRITO
