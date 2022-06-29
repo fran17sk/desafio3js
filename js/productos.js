@@ -12,11 +12,12 @@ class Producto{
     }
 }
 class Carrito{
-    constructor(id,prodName,price,imgProd){
+    constructor(id,prodName,price,imgProd,cant){
         this.id=id;
         this.prodName=prodName;
         this.price=price;
         this.imgPord=imgProd;
+        this.cant=cant;
     }
 }
 
@@ -83,6 +84,7 @@ function agregarCarrito(e){
     let prodName = CardItem.querySelector("h6").innerText;
     let price = CardItem.querySelector(".product-price").innerText;
     let imageSrc = CardItem.querySelector(".img-prod").src;
+    let cant = 1;
     let prodAdd;
     let s;
     band=0;
@@ -103,7 +105,7 @@ function agregarCarrito(e){
         return;
     }
     if(band==1 && s!=0){
-        prodAdd= new Carrito(ProdId,prodName,price,imageSrc);
+        prodAdd= new Carrito(ProdId,prodName,price,imageSrc,cant);
         almacenar(prodAdd);
         band=0;
         swal('','Producto añadido al carrito','success')

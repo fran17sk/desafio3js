@@ -26,11 +26,11 @@ actualizarCarrito();
 
 function actualizarCarrito(){    
     Productos_carrito.forEach(element=>{
-        agregarElem(element.id,element.prodName,element.price,element.imgPord)
+        agregarElem(element.id,element.prodName,element.price,element.imgPord,element.cant)
     })
 }
 
-function agregarElem(ProdId,prodName,price,imageSrc){
+function agregarElem(ProdId,prodName,price,imageSrc,cantidadElement){
     let productRow = document.createElement("div");
     let productRows = document.querySelector(".product-rows");
     let prodArray = document.getElementsByClassName("product-row");
@@ -43,10 +43,10 @@ function agregarElem(ProdId,prodName,price,imageSrc){
     }
     //inyectar el html al carrito
     let cartRowItem = `
-        <div class="elemento-carrito product-row" id="${ProdId}">
+        <div class="elemento-carrito product-row id" id="${ProdId}">
             <h4 class="info-carrito">${prodName}</h4>
             <h4 class="info-carrito cart-price">${price}</h4>
-            <input class="selector-carrito product-quantity" type="number" value="1">
+            <input class="selector-carrito product-quantity" type="number" value="${cantidadElement}" >
             <img class="img-carrito" src="${imageSrc}">
             <svg id="" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle remove-btn" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -99,40 +99,11 @@ function updatePrice() {
         let price = parseFloat(producto.querySelector(".cart-price").innerText.replace("$",""));
         let cantidad = producto.querySelector(".product-quantity").value;
         total += price * cantidad;
+    
     }
     document.querySelector(".total-price").innerText = "$" + total;
     document.querySelector(".cart-quantity").textContent = productRows.length;
 }
-
-
-
-
-//scroll
-$(document).ready(function(){
-	var altura = $('.carou').offset().top;
-	
-	$(window).on('scroll', function(){
-		if ( $(window).scrollTop() > altura ){
-			$('.menu').addClass('menu-fixed-redes');
-            $('.menu').removeClass('menu-fixed');
-			$('.cart-modal').addClass('subir');
-
-		} else {
-			$('.menu').removeClass('menu-fixed-redes');
-            $('.menu').addClass('menu-fixed');
-			$('.cart-modal').removeClass('subir');
-		}
-	});
-    $(window).on('scroll', function(){
-		if ( $(window).scrollTop() > altura ){
-			$('.redes').removeClass('menu-fixed-redes');
-            
-		} else {
-			$('.redes').addClass('menu-fixed-redes');
-		}
-	});
-
-});
 
 //sweet alert
 function msj(){

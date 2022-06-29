@@ -1051,6 +1051,62 @@ footer div p{
     color: white;
 }
 
-
-
-
+.ventana_pagar{
+    display: flex;
+    flex-flow: row nowrap;
+}
+.img_pay{
+    height: 400px;
+    width: 320px;
+}
+.title_pay{
+    font-size: 35px;
+    color: rgb(255, 255, 255);
+}
+.contenedor_prods{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+.espacioenblancoo{
+    height: 130px;
+}
+.titulo_carrito{
+    font-weight: 900;
+    margin-top: 50px;
+    margin-left: 20px;
+}
+.item_carritoPreCompra{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 5px 15px 5px 15px;
+}
+.img_item{
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+}
+.productos_carrito_preCompra{
+    width: 200%;
+    margin-left: 80px;
+}
+.fondo_preCompra{
+    background-color: rgb(218, 218, 218);
+}
+.fondo{
+    background-color: rgb(218, 218, 218);
+}
+.totales{
+    width: 200%;
+    margin-left: 80px;
+}
+.cart-total{
+    font-weight: 900;
+}
+.total-price{
+    font-weight: 900;
+    
+}
