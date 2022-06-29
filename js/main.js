@@ -46,7 +46,7 @@ function agregarElem(ProdId,prodName,price,imageSrc,cantidadElement){
         <div class="elemento-carrito product-row id" id="${ProdId}">
             <h4 class="info-carrito">${prodName}</h4>
             <h4 class="info-carrito cart-price">${price}</h4>
-            <input class="selector-carrito product-quantity" type="number" value="${cantidadElement}" >
+            <input class="selector-carrito product-quantity" type="number" value="${cantidadElement}">
             <img class="img-carrito" src="${imageSrc}">
             <svg id="" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle remove-btn" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>

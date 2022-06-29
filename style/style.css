@@ -1074,7 +1074,8 @@ footer div p{
 .titulo_carrito{
     font-weight: 900;
     margin-top: 50px;
-    margin-left: 20px;
+    margin-left: -100px;
+
 }
 .item_carritoPreCompra{
     display: flex;
@@ -1083,10 +1084,17 @@ footer div p{
     align-items: center;
     background-color: #fff;
     padding: 5px 15px 5px 15px;
+    margin-top: 5px;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+.item_carritoPreCompra:hover{
+    transform: scale(1.01,1.01);
+    
 }
 .img_item{
-    width: 100px;
-    height: 100px;
+    width:80px;
+    height: 80px;
     border-radius: 20px;
 }
 .productos_carrito_preCompra{
@@ -1109,4 +1117,29 @@ footer div p{
 .total-price{
     font-weight: 900;
     
+}
+.itemRemove{
+    width: 20px;
+    height: 20px;
+    transition: 0.5s;
+}
+.itemRemove:hover{
+    transform: scale(1.1);
+    color: red;
+
+}
+.seguirComprando{
+    margin-left: 100px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 900;
+    color: rgb(0, 0, 0);
+    transition: 1s;
+}
+.seguirComprando:hover{
+    color: red;
+    font-size: 25px;
+}
+.nameProdItemCompra{
+    width: 120px;
 }
